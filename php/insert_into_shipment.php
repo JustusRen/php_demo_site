@@ -3,30 +3,21 @@
 
 <?php include '../static/html/head.html'; ?>
 
-
-
-
 <body>
     <?php
         include 'connect_to_db.php';
     ?>
 
     <?php
-        try {
-            if(isset($_POST['sno'])) {
-            
+        if(isset($_POST['sno'], $_POST['pno'], $_POST['qty'], $_POST['price'])) {
+            try {
+                $sql = "INSERT INTO shipment (Sno, Pno, Qty, Price) VALUES (?,?,?,?);";
+                $query = $conn->prepare($sql);
+                $query->execute([$_POST['sno'], $_POST['pno'], $_POST['qty'], $_POST['price']]);
+                echo 'Success: Inserted data!';
+            } catch (Exception $e) {
+                echo 'Error: Could not insert data!';
             }
-            if(isset($_POST['pno'])) {
-            
-            }
-            if(isset($_POST['qty'])) {
-            
-            }
-            if(isset($_POST['price'])) {
-            
-            } 
-        } catch(PDOException $e){
-            
         }
     ?>
     
@@ -39,9 +30,7 @@
             <div class="column is-4 is-offset-4">
                 <h3 class="title">Insert Into Shipment</h3>
                 <div class="box">
-
                     <form method="POST">
-
                         <div class="field">
                             <div class="control">
                                 <div class="select" >

@@ -8,6 +8,8 @@
         include 'connect_to_db.php';
     ?>
     
+
+    
     <section class="hero is-info is-fullheight">
         <div class="hero-head">
            <?php include '../static/html/navbar.html'; ?>
@@ -22,9 +24,9 @@
                     <div class="field">
                         <div class="control">
                             <div class="select">
-                                <select>
+                                <select name="pno">
                                 <?php
-                                    $query = $conn->prepare('SELECT Pno FROM part ORDER BY');
+                                    $query = $conn->prepare('SELECT Pno FROM part ORDER BY pno');
                                     $query->execute();
 
                                     while ($row = $query->fetch(PDO::FETCH_ASSOC))
@@ -44,6 +46,28 @@
                     </div>
 
                     </form>
+                    <ul>
+                        <?php
+                            if(isset($_POST['pno'])) {
+                                try {
+                                    $query = $conn->prepare("
+                                    SELECT * 
+                                    FROM supplier  
+                                    WHERE sno IN    (SELECT sno 
+                                                    FROM shipment
+                                                    WHERE pno='" . $_POST['pno'] . "');");
+                                    $query->execute();
+                                    echo "<br>";
+                                    while ($row = $query->fetch(PDO::FETCH_ASSOC))
+                                    {
+                                        echo "<li>" . "Sno: ". $row['Sno'] . "<br>" .  "Sname: ". $row['Sname'] . "<br>" . "Status: ". $row['Status'] . "<br>" .  "City: ". $row['City'] . "<br><br>" . "</li>";
+                                    }
+                                } catch (Exception $e) {
+                                    echo 'Error: Could not insert data!';
+                                }
+                            }    
+                        ?>
+                    </ul>
                 </div>
             </div>
         </div>

@@ -3,9 +3,6 @@
 
 <?php include '../static/html/head.html'; ?>
 
-
-
-
 <body>
     <?php
         include 'connect_to_db.php';
@@ -26,11 +23,10 @@
 
                             while ($row = $query->fetch(PDO::FETCH_ASSOC))
                             {
-                                echo "<li>" . "Sno: " . $row['Sno'] . " | Sname: " .  $row['Sno'] . " | Status: " . $row['Sno'] . " | City: " . $row['Sno'] . "</li> <br>";
+                                echo "<li>" . "Sno: " . $row['Sno'] . " | Sname: " .  $row['Sname'] . " | Status: " . $row['Status'] . " | City: " . $row['City'] . "</li> <br>";
                             }
                         ?>
                     </ul>
-
                 </div>
             </div>
         </div>
