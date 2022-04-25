@@ -55,15 +55,15 @@
                                     FROM supplier  
                                     WHERE sno IN    (SELECT sno 
                                                     FROM shipment
-                                                    WHERE pno='" . $_POST['pno'] . "');");
-                                    $query->execute();
+                                                    WHERE pno=:id);");
+                                    $query->execute(array('id'=>$_POST['pno']));
                                     echo "<br>";
                                     while ($row = $query->fetch(PDO::FETCH_ASSOC))
                                     {
                                         echo "<li>" . "Sno: ". $row['Sno'] . "<br>" .  "Sname: ". $row['Sname'] . "<br>" . "Status: ". $row['Status'] . "<br>" .  "City: ". $row['City'] . "<br><br>" . "</li>";
                                     }
                                 } catch (Exception $e) {
-                                    echo 'Error: Could not insert data!';
+                                    echo 'Error: Could execute query!';
                                 }
                             }    
                         ?>

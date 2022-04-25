@@ -8,7 +8,7 @@
         include 'connect_to_db.php';
     ?>
     <?php 
-         if(array_key_exists('increase', $_POST)) {
+        if(array_key_exists('increase', $_POST)) {
             try {
                 $sql = "UPDATE supplier SET Status = Status*1.1";
                 $query = $conn->prepare($sql);
@@ -31,9 +31,7 @@
                         <?php
                             $query = $conn->prepare('SELECT * FROM supplier');
                             $query->execute();
-
-                            while ($row = $query->fetch(PDO::FETCH_ASSOC))
-                            {
+                            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
                                 echo "<li>" . "Sno: " . $row['Sno'] . " | Sname: " .  $row['Sname'] . " | Status: " . $row['Status'] . " | City: " . $row['City'] . "</li> <br>";
                             }
                         ?>
